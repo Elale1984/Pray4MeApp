@@ -1,1 +1,15 @@
-<p>list-prayer-requests works!</p>
+<div class="page-container">
+  <div class="grid-container prayer-cards" [ngClass]="{'shrink-container': selectedPrayerRequest != null}">
+    <div class="card text-white mb-3 grid-item"
+        [ngClass]="selectedPrayerRequest?.isSelected ? 'bg-secondary' : 'bg-success'"
+        *ngFor="let prayerRequest of prayerRequestDTO"
+        (click)="onSelectedPrayerRequest(prayerRequest)">
+      <div class="card-header">{{prayerRequest.category}}</div>
+      <div class="card-body">
+        <p class="card-text">{{prayerRequest.text}}</p>
+        <span>Submitted on {{prayerRequest.createdAt}} by {{prayerRequest.username}}"</span>
+      </div>
+    </div>
+  </div>
+  <div class="details-container" [ngClass]="{'grow-details-container': selectedPrayerRequest != null}"></div>
+</div>
