@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {PrayerServiceService} from '../services/prayer-service.service';
+import {PrayerServiceService} from '../services/prayer-services/prayer-service.service';
 import {PrayerRequests} from '../models/prayer-requests.model';
 import {PrayerRequestCategory} from '../models/prayer-request-category.model'
 import {Categories} from '../models/categories.model';
 import {PrayerRequestDTO} from '../models/prayer-request-dto.model';
 import {User} from '../models/user.model';
+import {PrayerRequestComment} from '../models/prayer-request-comments.model';
 
 @Component({
   selector: 'app-list-prayer-requests',
@@ -13,6 +14,7 @@ import {User} from '../models/user.model';
   styleUrls: ['./list-prayer-requests.component.css']
 })
 export class ListPrayerRequestsComponent implements OnInit {
+
   prayerRequestDTO: PrayerRequestDTO[] = [];
   prayerRequests: PrayerRequests[] = [];
   prayerRequestCategories: PrayerRequestCategory[] = [];
@@ -20,13 +22,34 @@ export class ListPrayerRequestsComponent implements OnInit {
   users: User[] = [];
   selectedPrayerRequest: PrayerRequestDTO | null = null;
   prayerRequest: PrayerRequestDTO[] = [];
+  comment: PrayerRequestComment | null = null;
+  comments: PrayerRequestComment[] = [];
 
   constructor(private route: ActivatedRoute, private service: PrayerServiceService) {
   }
 
   ngOnInit() {
 
+    this.comments.push();
+
+
+    this.service.getPrayers((prayerRequests) => {
+      this.prayerRequests = prayerRequests;
+    });
+
+    this.service.getPrayerRequestCategories((prayerRequestCategory) => {
+      this.prayerRequestCategories = prayerRequestCategory;
+    });
+
+    this.service.getCategories((categories) => {
+      this.categories = categories;
+    });
+
+    this.service.getUsers((users) => {
+      this.users = users;
+    });
     console.log('Getting prayer request data');
+
     this.service.getPrayerRequestData((prayerRequestDTO: PrayerRequestDTO[]) => {
       this.prayerRequestDTO = prayerRequestDTO;
       console.log('this.prayerRequestDTO', prayerRequestDTO);
@@ -47,6 +70,14 @@ export class ListPrayerRequestsComponent implements OnInit {
     }
     console.log("selectedPrayerRequest", prayerRequest);
   }
+
+  onCreateComment(prayerRequest: { selectedPrayerRequest: PrayerRequestDTO | null }): void {
+    if (this.selectedPrayerRequest != null) {
+
+    }
+  }
+
+
 }
 
 

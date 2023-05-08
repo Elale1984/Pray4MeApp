@@ -12,22 +12,60 @@
       </div>
     </div>
   </div>
-  <div class="details-container"
+  <div class="details-container bg-primary card"
        [ngClass]="{'details-container appear' : !selectedPrayerRequest?.isSelected, 'vanish details-shrink' : selectedPrayerRequest?.isSelected}">
-    <div class="prayer-details-action-buttons">
-      <button class="button-option">
-        <img class="button-image " (click)="onCloseDetails({selectedPrayerRequest})" src="assets/images/close.png"
-             alt="close prayer request details">
-      </button>
-      <button class="button-option">
-        <img class="button-image" src="assets/images/bookmark.png" alt="bookmark prayer request">
-      </button>
-      <button class="button-option">
-        <img class="button-image" src="assets/images/prayer.png" alt="notify your praying for this prayer request">
-      </button>
-      <button class="button-option">
-        <img class="button-image" src="assets/images/comment.png" alt="comment on this prayer request">
-      </button>
+    <div class="selected-prayer-details">
+      <div class="prayer-details-content-container">
+        <div class="card-header">{{selectedPrayerRequest?.category}}</div>
+        <div class="card-body">
+          <p class="card-text">{{selectedPrayerRequest?.text}}</p>
+          <span>Submitted on {{selectedPrayerRequest?.createdAt}} by {{selectedPrayerRequest?.username}}"</span>
+        </div>
+      </div>
+      <div class="prayer-details-action-buttons">
+        <button class="button-option">
+          <img class="button-image " (click)="onCloseDetails({selectedPrayerRequest})" ngSrc="assets/images/close.png"
+               alt="close prayer request details" height="94" width="94">
+        </button>
+        <button class="button-option">
+          <img class="button-image" ngSrc="assets/images/bookmark.png" alt="bookmark prayer request" height="64"
+               width="64">
+        </button>
+        <button class="button-option">
+          <img class="button-image" ngSrc="assets/images/prayer.png" alt="notify your praying for this prayer request"
+               height="64" width="64">
+        </button>
+        <button class="button-option">
+          <img class="button-image" (click)="onCreateComment({selectedPrayerRequest})" ngSrc="assets/images/comment.png"
+               alt="comment on this prayer request" height="94"
+               width="94">
+        </button>
+      </div>
+    </div>
+    <div class="comment-section">
+      <!--        form for comment section -->
+      <div class="comment-section-title">
+        <h2>Comments</h2>
+      </div>
+      <div class="create-user-comment-container">
+        <textarea class="form-control"
+                  placeholder="Let {{selectedPrayerRequest?.username}} know you are praying for them..."
+                  [(ngModel)]="comment"></textarea>
+      </div>
+      <div class="supporting-comments-container" [(ngModel)]="comments"
+           *ngFor="let supportingComment of comments" readonly>
+        <div class="user-comment-container bg-success">
+          <div class="user-comment-icon">
+            <i class="fa fa-comment"></i>
+          </div>
+          <div class="user-comment-content">
+
+          </div>
+          <div class="user-comment-metadata">
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

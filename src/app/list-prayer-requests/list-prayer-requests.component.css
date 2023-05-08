@@ -4,8 +4,9 @@
 
 .prayers-container {
   margin: 10px 30px;
-  flex: 100%;
+  flex: 1;
 }
+
 
 .prayers-shrink {
   animation-name: shrink-prayers;
@@ -16,16 +17,22 @@
 
 @keyframes shrink-prayers {
   0% {
+    margin: 10px 30px;
     flex: 100%;
   }
   100% {
+    margin: 10px 30px;
     flex: 0.65;
     animation: appear 1s forwards;
   }
 }
 
 .details-container {
+  display: flex !important;
   flex: 0;
+  visibility: hidden;
+  overflow: hidden;
+
 }
 
 .details-shrink {
@@ -37,11 +44,18 @@
 
 @keyframes shrink-details {
   0% {
+    margin: 0;
+    padding: 0;
     animation: vanish 1s forwards;
-    flex: 0.35;
+    opacity: 0;
+    flex: 0;
   }
   100% {
-    flex: 0;
+    margin: 10px 30px 30px 0;
+    padding: 15px;
+    flex: 0.35;
+    opacity: 1;
+
   }
 }
 
@@ -58,28 +72,75 @@
 @keyframes appear {
   0% {
     opacity: 0;
+
   }
   100% {
     opacity: 1;
+
     visibility: visible;
+
   }
 }
 
 .prayer-details-action-buttons {
   display: flex;
   flex-direction: column;
-  align-items: end;
+  align-self: end;
+
 }
 
 .button-option {
   margin: 5px;
   width: fit-content;
   height: fit-content;
-  padding: 10px;
+  padding: 5px;
 }
 
 .button-image {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
+
+}
+
+/*make the .button-option shake when hover */
+.button-option:hover {
+  animation: shake 0.3s ease-in-out;
+}
+
+/* @keyframe for the shake animation*/
+@keyframes shake {
+  0% {
+    transform: translate(0px, 0px);
+  }
+  25% {
+    transform: translate(-1px, 1px);
+  }
+  50% {
+    transform: translate(2px, -2px);
+  }
+  75% {
+    transform: translate(-1px, 1px);
+  }
+  100% {
+    transform: translate(0px, 0px);
+  }
+
+
+}
+
+.selected-prayer-details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.prayer-details-content-container {
+
+}
+
+.user-comment-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  padding: 15px;
 
 }

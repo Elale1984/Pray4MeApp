@@ -10,6 +10,8 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule} from '@angular/forms';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
+import {NgOptimizedImage} from "@angular/common";
+import {PrayerDetailsModalComponent} from './prayer-details-modal/prayer-details-modal.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,8 @@ import {MatIconModule} from '@angular/material/icon';
     ListPrayerRequestsComponent,
     ListCategoriesComponent,
     ListBookmarksComponent,
-    ListAnalyticsComponent
+    ListAnalyticsComponent,
+    PrayerDetailsModalComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,8 @@ import {MatIconModule} from '@angular/material/icon';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatIconModule
+    MatIconModule,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]

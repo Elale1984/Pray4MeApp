@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { PrayerRequests } from '../models/prayer-requests.model';
-import { PrayerRequestCategory } from '../models/prayer-request-category.model';
-import { PrayerRequestDTO } from '../models/prayer-request-dto.model';
-import { Categories } from '../models/categories.model';
-import { User } from '../models/user.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {PrayerRequests} from '../../models/prayer-requests.model';
+import {PrayerRequestCategory} from '../../models/prayer-request-category.model';
+import {PrayerRequestDTO} from '../../models/prayer-request-dto.model';
+import {Categories} from '../../models/categories.model';
+import {User} from '../../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,8 @@ import { User } from '../models/user.model';
 export class PrayerServiceService {
   private host = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
 
   public getPrayers(
