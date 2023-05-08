@@ -1,26 +1,85 @@
+.page-container {
+  display: flex;
+}
 
-
-.grid-container {
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+.prayers-container {
   margin: 10px 30px;
   flex: 100%;
 }
-.details-container {
-  flex: 0.0;
-}
-.shrink-container {
-  transition: all 1s;
-  flex: 0.65;
+
+.prayers-shrink {
+  animation-name: shrink-prayers;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
 }
 
-.grow-details-container {
-  background-color: aqua;
-  margin: 10px 30px 30px 0;
-  border-radius: 3px;
-  border: 2px solid brown;
-  flex: 0.35;
+@keyframes shrink-prayers {
+  0% {
+    flex: 100%;
+  }
+  100% {
+    flex: 0.65;
+    animation: appear 1s forwards;
+  }
 }
-.page-container {
+
+.details-container {
+  flex: 0;
+}
+
+.details-shrink {
+  animation-name: shrink-details;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes shrink-details {
+  0% {
+    animation: vanish 1s forwards;
+    flex: 0.35;
+  }
+  100% {
+    flex: 0;
+  }
+}
+
+@keyframes vanish {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.prayer-details-action-buttons {
   display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.button-option {
+  margin: 5px;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px;
+}
+
+.button-image {
+  height: 3rem;
+  width: 3rem;
+
 }

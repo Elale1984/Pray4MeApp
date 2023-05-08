@@ -1,9 +1,10 @@
 <div class="page-container">
-  <div class="grid-container prayer-cards" [ngClass]="{'shrink-container': selectedPrayerRequest != null}">
+  <div class="prayers-container"
+       [ngClass]="{'prayers-shrink' : selectedPrayerRequest?.isSelected, 'prayers-container' : !selectedPrayerRequest?.isSelected}">
     <div class="card text-white mb-3 grid-item"
-        [ngClass]="selectedPrayerRequest?.isSelected ? 'bg-secondary' : 'bg-success'"
-        *ngFor="let prayerRequest of prayerRequestDTO"
-        (click)="onSelectedPrayerRequest(prayerRequest)">
+         [ngClass]="selectedPrayerRequest?.isSelected ? 'bg-secondary' : 'bg-success'"
+         *ngFor="let prayerRequest of prayerRequestDTO"
+         (click)="onSelectedPrayerRequest(prayerRequest)">
       <div class="card-header">{{prayerRequest.category}}</div>
       <div class="card-body">
         <p class="card-text">{{prayerRequest.text}}</p>
@@ -11,5 +12,22 @@
       </div>
     </div>
   </div>
-  <div class="details-container" [ngClass]="{'grow-details-container': selectedPrayerRequest != null}"></div>
+  <div class="details-container"
+       [ngClass]="{'details-container appear' : !selectedPrayerRequest?.isSelected, 'vanish details-shrink' : selectedPrayerRequest?.isSelected}">
+    <div class="prayer-details-action-buttons">
+      <button class="button-option">
+        <img class="button-image " (click)="onCloseDetails({selectedPrayerRequest})" src="assets/images/close.png"
+             alt="close prayer request details">
+      </button>
+      <button class="button-option">
+        <img class="button-image" src="assets/images/bookmark.png" alt="bookmark prayer request">
+      </button>
+      <button class="button-option">
+        <img class="button-image" src="assets/images/prayer.png" alt="notify your praying for this prayer request">
+      </button>
+      <button class="button-option">
+        <img class="button-image" src="assets/images/comment.png" alt="comment on this prayer request">
+      </button>
+    </div>
+  </div>
 </div>
