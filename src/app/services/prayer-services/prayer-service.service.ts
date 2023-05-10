@@ -5,12 +5,14 @@ import {PrayerRequestCategory} from '../../models/prayer-request-category.model'
 import {PrayerRequestDTO} from '../../models/prayer-request-dto.model';
 import {Categories} from '../../models/categories.model';
 import {User} from '../../models/user.model';
+import {PrayerRequestComment} from "../../models/prayer-request-comments.model";
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrayerServiceService {
   private host = 'http://localhost:3000';
+  private prayerRequestId: number | undefined;
 
   constructor(private http: HttpClient) {
   }
@@ -48,6 +50,16 @@ export class PrayerServiceService {
       });
   }
 
+  public getComments(prayerRequestId: number, callback: (comments: PrayerRequestComment[]) => void): void {
+    this.http
+      .get<PrayerRequestComment[]>(this.host + '/comments/:?prayerRequestId=' + prayerRequestId)
+      .subscribe((comments: PrayerRequestComment[]) => {
+        console.log('Comments = ', comments);
+        callback(comments);
+      });
+  }
+
+
   public getUsers(
     callback: (users: User[]) => void
   ): void {
@@ -72,6 +84,7 @@ export class PrayerServiceService {
               const user = users?.find(user => user.userId === prayerRequest.userId);
 
               return {
+                prayerRequestId: prayerRequest.prayerRequestId,
                 category: category ? category.name : '',
                 text: prayerRequest.text,
                 createdAt: prayerRequest.createdAt,

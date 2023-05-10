@@ -4,7 +4,7 @@
     <div class="card text-white mb-3 grid-item"
          [ngClass]="selectedPrayerRequest?.isSelected ? 'bg-secondary' : 'bg-success'"
          *ngFor="let prayerRequest of prayerRequestDTO"
-         (click)="onSelectedPrayerRequest(prayerRequest)">
+         (click)="onSelectedPrayerRequest(prayerRequest); onGetComments(prayerRequest.prayerRequestId)">
       <div class="card-header">{{prayerRequest.category}}</div>
       <div class="card-body">
         <p class="card-text">{{prayerRequest.text}}</p>
@@ -18,7 +18,7 @@
       <div class="prayer-details-content-container">
         <div class="card-header">{{selectedPrayerRequest?.category}}</div>
         <div class="card-body">
-          <p class="card-text">{{selectedPrayerRequest?.text}}</p>
+          <p class="card-text paragraph-text">{{selectedPrayerRequest?.text}}</p>
           <span>Submitted on {{selectedPrayerRequest?.createdAt}} by {{selectedPrayerRequest?.username}}"</span>
         </div>
       </div>
@@ -36,7 +36,9 @@
                height="64" width="64">
         </button>
         <button class="button-option">
-          <img class="button-image" (click)="onCreateComment({selectedPrayerRequest})" ngSrc="assets/images/comment.png"
+          <img class="button-image"
+               (click)="onCreateComment({selectedPrayerRequest}); showCommentSection = true"
+               ngSrc="assets/images/comment.png"
                alt="comment on this prayer request" height="94"
                width="94">
         </button>
@@ -47,23 +49,24 @@
       <div class="comment-section-title">
         <h2>Comments</h2>
       </div>
-      <div class="create-user-comment-container">
-        <textarea class="form-control"
-                  placeholder="Let {{selectedPrayerRequest?.username}} know you are praying for them..."
-                  [(ngModel)]="comment"></textarea>
+      <div
+        [ngClass]="showCommentSection ? 'show' : 'create-user-comment-container'">
+        <form (submit)="onSendPrayerRequestComment()">
+           <textarea class="form-control "
+                     name="commentText"
+                     placeholder="Let {{selectedPrayerRequest?.username}} know you are praying for them..."
+                     [(ngModel)]="commentText"
+                     [ngModelOptions]="{ standalone: true }"></textarea>
+          <button type="submit" class="btn btn-success text-white border-primary"
+                  (click)="onSendPrayerRequestComment()">
+            Submit
+          </button>
+        </form>
       </div>
-      <div class="supporting-comments-container" [(ngModel)]="comments"
-           *ngFor="let supportingComment of comments" readonly>
-        <div class="user-comment-container bg-success">
-          <div class="user-comment-icon">
-            <i class="fa fa-comment"></i>
-          </div>
-          <div class="user-comment-content">
-
-          </div>
-          <div class="user-comment-metadata">
-
-          </div>
+      <div class="supporting-comments-container">
+        <div class="user-comment-container text-white paragraph-text bg-success"
+             *ngFor="let supportingComment of prayerRequestComments">
+          {{supportingComment?.text}}
         </div>
       </div>
     </div>

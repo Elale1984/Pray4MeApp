@@ -21,17 +21,15 @@ export class ListPrayerRequestsComponent implements OnInit {
   categories: Categories[] = [];
   users: User[] = [];
   selectedPrayerRequest: PrayerRequestDTO | null = null;
-  prayerRequest: PrayerRequestDTO[] = [];
-  comment: PrayerRequestComment | null = null;
-  comments: PrayerRequestComment[] = [];
+  prayerRequestComments: PrayerRequestComment[] = [];
+  prayerRequestId: number | null = null
+  commentText: string = '';
+  showCommentSection: boolean | undefined;
 
   constructor(private route: ActivatedRoute, private service: PrayerServiceService) {
   }
 
   ngOnInit() {
-
-    this.comments.push();
-
 
     this.service.getPrayers((prayerRequests) => {
       this.prayerRequests = prayerRequests;
@@ -55,13 +53,16 @@ export class ListPrayerRequestsComponent implements OnInit {
       console.log('this.prayerRequestDTO', prayerRequestDTO);
     });
 
+
   }
 
   public onSelectedPrayerRequest(prayerRequest: PrayerRequestDTO): void {
-
+    this.commentText = '';
+    this.prayerRequestComments = [];
     prayerRequest.isSelected = true;
     this.selectedPrayerRequest = prayerRequest;
     console.log('selectedPrayerRequest', this.selectedPrayerRequest);
+
   }
 
   onCloseDetails(prayerRequest: { selectedPrayerRequest: PrayerRequestDTO | null }): void {
@@ -78,7 +79,22 @@ export class ListPrayerRequestsComponent implements OnInit {
   }
 
 
+  onGetComments(prayerRequestId: number): void {
+    this.prayerRequestId = prayerRequestId;
+    console.log('prayerRequestId', prayerRequestId);
+    console.log('this.prayerRequestId', this.prayerRequestId);
+    this.service.getComments(prayerRequestId, (prayerRequestComments: PrayerRequestComment[]) => {
+      this.prayerRequestComments = prayerRequestComments;
+    });
+  }
+
+  onSendPrayerRequestComment() {
+    console.log('this.commentText', this.commentText);
+    this.showCommentSection = false;
+    this.commentText = "";
+  }
 }
+
 
 
 

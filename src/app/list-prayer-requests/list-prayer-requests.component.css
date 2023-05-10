@@ -140,7 +140,21 @@
 .user-comment-container {
   display: flex;
   flex-direction: column;
-  border-radius: 15px;
+  border-radius: 5px;
   padding: 15px;
+  margin-block: 10px;
 
+}
+
+.create-user-comment-section {
+  visibility: hidden;
+}
+
+.create-user-comment-section.show {
+  display: block;
+}
+
+
+.paragraph-text {
+  white-space: pre-wrap;
 }

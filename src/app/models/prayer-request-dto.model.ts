@@ -1,4 +1,5 @@
 export interface PrayerRequestDTO {
+  prayerRequestId: number;
   category: string;
   text: string;
   createdAt: Date;
