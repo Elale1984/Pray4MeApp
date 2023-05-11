@@ -7,12 +7,13 @@ import {Categories} from '../../models/categories.model';
 import {User} from '../../models/user.model';
 import {PrayerRequestComment} from "../../models/prayer-request-comments.model";
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class PrayerServiceService {
   private host = 'http://localhost:3000';
-  private prayerRequestId: number | undefined;
+
 
   constructor(private http: HttpClient) {
   }
@@ -88,6 +89,7 @@ export class PrayerServiceService {
                 category: category ? category.name : '',
                 text: prayerRequest.text,
                 createdAt: prayerRequest.createdAt,
+                userId: prayerRequest.userId,
                 username: user ? user.username : '',
                 isAnswered: prayerRequest.isAnswered,
                 isSelected: false
@@ -99,5 +101,20 @@ export class PrayerServiceService {
         });
       });
     });
+  }
+
+  createPrayerRequestComment(selectedPrayerRequest: PrayerRequestDTO, commentText: string, callback: () => void): void {
+    const prayerRequestCommentId: number = -1;
+    const prayerRequestId: number = selectedPrayerRequest.prayerRequestId;
+    const userId: number = selectedPrayerRequest.userId;
+    const text: string = commentText;
+    const createdAt: Date = new Date();
+
+    const comment: PrayerRequestComment = {prayerRequestCommentId, prayerRequestId, userId, text, createdAt}
+    this.http.post<PrayerRequestComment>(this.host + "/prayer-request-comment", comment)
+      .subscribe((data) => {
+        console.log('Comment Data', data);
+        callback();
+      });
   }
 }

@@ -24,13 +24,13 @@ export class ListPrayerRequestsComponent implements OnInit {
   prayerRequestComments: PrayerRequestComment[] = [];
   prayerRequestId: number | null = null
   commentText: string = '';
-  showCommentSection: boolean | undefined;
+  showCommentSection: boolean | null = null;
 
   constructor(private route: ActivatedRoute, private service: PrayerServiceService) {
   }
 
   ngOnInit() {
-
+    this.showCommentSection = false;
     this.service.getPrayers((prayerRequests) => {
       this.prayerRequests = prayerRequests;
     });
@@ -73,8 +73,10 @@ export class ListPrayerRequestsComponent implements OnInit {
   }
 
   onCreateComment(prayerRequest: { selectedPrayerRequest: PrayerRequestDTO | null }): void {
-    if (this.selectedPrayerRequest != null) {
-
+    if (!this.showCommentSection) {
+      console.log('showCommentSection', this.showCommentSection);
+      this.showCommentSection = true;
+      console.log('showCommentSection', this.showCommentSection);
     }
   }
 
@@ -88,10 +90,23 @@ export class ListPrayerRequestsComponent implements OnInit {
     });
   }
 
-  onSendPrayerRequestComment() {
+  onCommentCreated() {
+
+    console.log('Comment created!');
+  }
+
+  onSendPrayerRequestComment(param: { selectedPrayerRequest: PrayerRequestDTO | null }) {
     console.log('this.commentText', this.commentText);
+    this.service.createPrayerRequestComment(param.selectedPrayerRequest!, this.commentText, this.onCommentCreated.bind(this));
     this.showCommentSection = false;
     this.commentText = "";
+  }
+
+  onPrayForThisUserRequest(param: { selectedPrayerRequest: PrayerRequestDTO | null }) {
+    if (this.selectedPrayerRequest) {
+      console.log('this.selectdPrayerRequest Pray button', this.selectedPrayerRequest);
+
+    }
   }
 }
 

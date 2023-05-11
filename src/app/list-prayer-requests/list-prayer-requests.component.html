@@ -32,12 +32,14 @@
                width="64">
         </button>
         <button class="button-option">
-          <img class="button-image" ngSrc="assets/images/prayer.png" alt="notify your praying for this prayer request"
+          <img class="button-image" ngSrc="assets/images/prayer.png"
+               (click)="onPrayForThisUserRequest({selectedPrayerRequest})"
+               alt="notify your praying for this prayer request"
                height="64" width="64">
         </button>
         <button class="button-option">
           <img class="button-image"
-               (click)="onCreateComment({selectedPrayerRequest}); showCommentSection = true"
+               (click)="onCreateComment({selectedPrayerRequest})"
                ngSrc="assets/images/comment.png"
                alt="comment on this prayer request" height="94"
                width="94">
@@ -49,16 +51,16 @@
       <div class="comment-section-title">
         <h2>Comments</h2>
       </div>
-      <div
-        [ngClass]="showCommentSection ? 'show' : 'create-user-comment-container'">
-        <form (submit)="onSendPrayerRequestComment()">
+      <div class="create-user-comment-container"
+           [ngClass]="{'create-user-comment-container textfield-hide' : !showCommentSection, 'create-user-comment-container textfield-show' : showCommentSection}">
+        <form>
            <textarea class="form-control "
                      name="commentText"
                      placeholder="Let {{selectedPrayerRequest?.username}} know you are praying for them..."
                      [(ngModel)]="commentText"
                      [ngModelOptions]="{ standalone: true }"></textarea>
           <button type="submit" class="btn btn-success text-white border-primary"
-                  (click)="onSendPrayerRequestComment()">
+                  (click)="onSendPrayerRequestComment({selectedPrayerRequest})">
             Submit
           </button>
         </form>
