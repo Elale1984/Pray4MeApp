@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatIconModule} from '@angular/material/icon';
 import {NgOptimizedImage} from "@angular/common";
 import {PrayerDetailsModalComponent} from './prayer-details-modal/prayer-details-modal.component';
+import {HomeComponent} from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {PrayerDetailsModalComponent} from './prayer-details-modal/prayer-details
     ListCategoriesComponent,
     ListBookmarksComponent,
     ListAnalyticsComponent,
-    PrayerDetailsModalComponent
+    PrayerDetailsModalComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

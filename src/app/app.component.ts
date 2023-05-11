@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router'
+import {Component} from '@angular/core';
+import {Router} from '@angular/router'
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,11 @@ import { Router } from '@angular/router'
 export class AppComponent {
   title = 'Pray4MeApp';
 
-  constructor (private router: Router) { }
+  constructor(private router: Router) {
+  }
 
-  public displayPrayerList(){
-    this.router.navigate(['list-prayer-requests'], {queryParams: { data: new Date()}});
+  public displayPrayerList() {
+    this.router.navigate(['list-prayer-requests']);
   }
 }
 

@@ -91,7 +91,6 @@ export class ListPrayerRequestsComponent implements OnInit {
   }
 
   onCommentCreated() {
-
     console.log('Comment created!');
   }
 

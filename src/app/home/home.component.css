@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.home-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-logo {
+  margin-top: -100px;
+  animation: welcome-logo 2s forwards;
+
+}
+
+.home-logo > img {
+  width: 75vh;
+  height: 50vh;
+  animation: grow-shrink-logo 3s forwards;
+}
+
+@keyframes welcome-logo {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+
+  }
+}
+
+@keyframes grow-shrink-logo {
+  0% {
+    width: 75vh;
+    height: 50vh;
+  }
+  50% {
+    width: 100vh;
+    height: 75vh;
+
+  }
+  100% {
+    width: 75vh;
+    height: 50vh;
+  }
+}
