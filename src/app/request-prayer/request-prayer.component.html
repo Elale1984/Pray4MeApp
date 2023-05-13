@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-center mt-5">
+  <div class="page-header-message col-sm-6 text-center" style="margin-top: 3%;">
+    <h1 class="display-2">Prayer Works</h1>
+  </div>
+</div>
+<div class="d-flex justify-content-center align-items-center" style="height: 25vh;">
+  <div class="col-sm-6" style="margin-top: 7%;">
+    <form #prayerForm="ngForm">
+      <fieldset>
+        <div class="form-group" [class.has-danger]="!prayerRequest" [class.has-success]="prayerRequest">
+          <input type="text" class="form-control" [(ngModel)]="prayerRequest" name="prayerRequest"
+                 placeholder="How can we pray for you..." required (input)="onPrayerRequestInput()">
+          <div class="invalid-feedback">Please enter a prayer request.</div>
+          <div class="valid-feedback">Thank you for your prayer request!</div>
+        </div>
+        <div class="form-group mt-3" [class.has-danger]="!selectedCategory" [class.has-success]="selectedCategory">
+          <label for="categoryList" class="form-label">Select a Prayer Request Category</label>
+          <select class="form-select" [(ngModel)]="selectedCategory" id="categoryList" name="selectedCategory" required
+                  (change)="onCategorySelect()">
+            <option *ngFor="let category of categories" [value]="category.categoryId">{{ category.name }}</option>
+          </select>
+          <div class="invalid-feedback">Please select a category.</div>
+          <div class="valid-feedback">Thank you for selecting a category!</div>
+        </div>
+        <button (click)="createPrayerRequest({prayerRequest}, {selectedCategory})" type="submit"
+                class="btn btn-primary mt-3">
+          Submit
+        </button>
+      </fieldset>
+    </form>
+
+  </div>
+</div>

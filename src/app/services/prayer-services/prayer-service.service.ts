@@ -27,6 +27,7 @@ export class PrayerServiceService {
       .subscribe((prayerRequests: PrayerRequests[]) => {
         callback(prayerRequests);
       });
+
   }
 
   public getPrayerRequestCategories(
@@ -110,11 +111,46 @@ export class PrayerServiceService {
     const text: string = commentText;
     const createdAt: Date = new Date();
 
+    // Create the comment object to send to the api
     const comment: PrayerRequestComment = {prayerRequestCommentId, prayerRequestId, userId, text, createdAt}
+
+    // Post prayer request comment
     this.http.post<PrayerRequestComment>(this.host + "/prayer-request-comment", comment)
       .subscribe((data) => {
         console.log('Comment Data', data);
         callback();
       });
+  }
+
+  createPrayerRequest(prayerRequests: PrayerRequests[], prayerText: string, categoryId: number, callback: () => void): void {
+    const prayerRequestId: number = -1;
+    const userId = Math.floor(Math.random() * 5) + 1;
+    const text: string = prayerText;
+    const createdAt: Date = new Date();
+    const isAnswered: boolean = false;
+
+    // Create the Prayer Request object to send to the api
+    const prayerRequest: PrayerRequests = {prayerRequestId, userId, text, createdAt, isAnswered};
+
+    // Post prayer request
+    this.http.post<PrayerRequests>(this.host + "/prayer-requests", prayerRequest).subscribe((data) => {
+      console.log('PrayerRequest', data);
+      callback();
+    });
+  }
+
+  createPrayerRequestCategory(prayerId: number, categoryIdNumber: number, callback: () => void): void {
+    const prayerRequestCategoryId: number = -1;
+    const prayerRequestId: number = prayerId;
+    const categoryId: number = categoryIdNumber;
+
+    // Create the prayer request category object to send to the api
+    const prayerRequestCategory: PrayerRequestCategory = {prayerRequestCategoryId, prayerRequestId, categoryId};
+
+    // post the prayer request category
+    this.http.post<PrayerRequestCategory>(this.host + "/prayer-request-category", prayerRequestCategory).subscribe((data) => {
+      console.log('prayerRequestCategory', prayerRequestCategory);
+      callback();
+    });
   }
 }

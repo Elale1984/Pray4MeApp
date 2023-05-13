@@ -8,12 +8,21 @@ import {Router} from '@angular/router'
 })
 export class AppComponent {
   title = 'Pray4MeApp';
+  version = "1.0";
 
   constructor(private router: Router) {
   }
 
   public displayPrayerList() {
     this.router.navigate(['list-prayer-requests']);
+  }
+
+  public displayRequestPrayer() {
+    this.router.navigate(['request-prayer']);
+  }
+
+  public displayVersion() {
+    alert(this.title + "\n\n" + "Version: " + this.version);
   }
 }
 

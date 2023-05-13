@@ -103,7 +103,7 @@ export class ListPrayerRequestsComponent implements OnInit {
 
   onPrayForThisUserRequest(param: { selectedPrayerRequest: PrayerRequestDTO | null }) {
     if (this.selectedPrayerRequest) {
-      console.log('this.selectdPrayerRequest Pray button', this.selectedPrayerRequest);
+      console.log('this.selectedPrayerRequest Pray button', this.selectedPrayerRequest);
 
     }
   }
